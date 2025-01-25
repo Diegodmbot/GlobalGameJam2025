@@ -1,12 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh8t1f23ufd7y"]
+[gd_scene load_steps=13 format=3 uid="uid://bh8t1f23ufd7y"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_tb3fq"]
 [ext_resource type="Script" path="res://mejoras.gd" id="2_u0kph"]
+[ext_resource type="FontFile" uid="uid://cpohir7hnexau" path="res://SuperShiny.ttf" id="3_7gd3n"]
 [ext_resource type="Script" path="res://button.gd" id="3_d6h28"]
 [ext_resource type="Texture2D" uid="uid://biwfyijpsvypl" path="res://sprites/Papel-1.PNG" id="4_txce2"]
+[ext_resource type="Script" path="res://texture_button.gd" id="5_47q5w"]
+[ext_resource type="Script" path="res://audio_stream_player.gd" id="5_ttjky"]
+[ext_resource type="AudioStream" uid="uid://cjrclfvt5ajtq" path="res://pop-sound.mp3" id="7_7yuuq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdu1o"]
 bg_color = Color(0.485653, 0.649777, 0.995861, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_k3u3j"]
+font = ExtResource("3_7gd3n")
+
+[sub_resource type="LabelSettings" id="LabelSettings_iuvw8"]
+font = ExtResource("3_7gd3n")
+
+[sub_resource type="LabelSettings" id="LabelSettings_tbhel"]
+font = ExtResource("3_7gd3n")
+font_size = 32
 
 [node name="Node2D" type="CanvasLayer"]
 script = ExtResource("1_tb3fq")
@@ -67,6 +81,7 @@ grow_vertical = 0
 [node name="Label" type="Label" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/x2/HBoxContainer"]
 layout_mode = 2
 text = "x2"
+label_settings = SubResource("LabelSettings_k3u3j")
 
 [node name="Button" type="Button" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/x2/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
@@ -95,6 +110,7 @@ grow_vertical = 0
 [node name="Label" type="Label" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/x4/HBoxContainer"]
 layout_mode = 2
 text = "x4"
+label_settings = SubResource("LabelSettings_iuvw8")
 
 [node name="Button" type="Button" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/x4/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
@@ -116,13 +132,21 @@ size_flags_horizontal = 4
 [node name="Background" type="Sprite2D" parent="Main"]
 
 [node name="Contador" type="Label" parent="Main"]
-layout_mode = 2
-offset_left = -23.0
-offset_top = 89.0
-offset_right = -13.0
-offset_bottom = 112.0
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 83.0
+offset_right = 8.0
+offset_bottom = -540.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 0
 text = "0"
+label_settings = SubResource("LabelSettings_tbhel")
+horizontal_alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="Main"]
 layout_mode = 2
@@ -136,6 +160,11 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 0.5
 texture_normal = ExtResource("4_txce2")
 stretch_mode = 0
+script = ExtResource("5_47q5w")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main/TextureButton"]
+script = ExtResource("5_ttjky")
+streams = Array[AudioStream]([ExtResource("7_7yuuq")])
 
 [node name="Button" type="Button" parent="Main"]
 layout_mode = 2
