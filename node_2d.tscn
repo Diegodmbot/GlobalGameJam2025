@@ -1,13 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh8t1f23ufd7y"]
+[gd_scene load_steps=4 format=3 uid="uid://cj06ieunxwxoq"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_tb3fq"]
+[ext_resource type="Script" path="res://mejoras.gd" id="2_u0kph"]
+[ext_resource type="Script" path="res://button.gd" id="3_d6h28"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="CanvasLayer"]
 script = ExtResource("1_tb3fq")
 
-[node name="Mejoras" type="CanvasLayer" parent="."]
+[node name="Mejoras" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_u0kph")
 
 [node name="MarginContainer" type="MarginContainer" parent="Mejoras"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -30,6 +40,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_constants/separation = 45
+alignment = 1
 
 [node name="x2" type="Control" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -56,18 +67,50 @@ text = "x2"
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 text = "cost"
+script = ExtResource("3_d6h28")
+valor_boton = 2
 
-[node name="Main" type="Control" parent="Mejoras"]
-layout_mode = 3
-anchors_preset = 8
+[node name="x4" type="Control" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/x4"]
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/x4/HBoxContainer"]
+layout_mode = 2
+text = "x4"
+
+[node name="Button" type="Button" parent="Mejoras/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/x4/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "cost"
+script = ExtResource("3_d6h28")
+valor_boton = 4
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 
-[node name="Button" type="Button" parent="Mejoras/Main"]
+[node name="Background" type="Sprite2D" parent="Main"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -75,27 +118,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -22.5
-offset_top = -15.5
+offset_top = -29.0
 offset_right = 22.5
-offset_bottom = 15.5
+offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Contador" type="Label" parent="Main/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "0"
+
+[node name="Button" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Click"
 
-[node name="Background" type="Sprite2D" parent="Mejoras/Main"]
-
-[node name="Contador" type="Label" parent="Mejoras/Main"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_top = -44.0
-offset_right = 20.0
-offset_bottom = -21.0
-grow_horizontal = 2
-text = "0"
-
-[connection signal="pressed" from="Mejoras/Main/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/Button" to="." method="_on_button_pressed"]
