@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var texture_button = $Main/TextureButton
 @onready var current_state:int = 1
 
+const INITIAL_POSITION = Vector2(-960, -167)
 const ADDER : int = 1
 
 
@@ -33,4 +34,12 @@ func _on_texture_button_pressed():
 	tween.tween_property(texture_button, "rotation_degrees", randf_range(-3, -10), 0.05)
 	if current_state == 0:
 		texture_button.disabled = true
-		tween.tween_property(texture_button, "position", Vector2(texture_button.position.x, 1000), 2)
+		tween.tween_property(texture_button, "position", Vector2(texture_button.position.x, 800), 1)
+		await  tween.finished
+		texture_button.position = INITIAL_POSITION
+		texture_button.scale = Vector2(0,0)
+		#tween.stop()
+		$Main/TextureButton/AnimationPlayer.play("create")
+		current_state = 1
+		texture_button.texture_normal = preload("res://sprites/Papel-1.PNG")
+		texture_button.disabled = false
