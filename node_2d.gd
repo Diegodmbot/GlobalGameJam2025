@@ -38,7 +38,6 @@ func _on_texture_button_pressed():
 		await  tween.finished
 		texture_button.position = INITIAL_POSITION
 		texture_button.scale = Vector2(0,0)
-		#tween.stop()
 		$Main/TextureButton/AnimationPlayer.play("create")
 		current_state = 1
 		texture_button.texture_normal = preload("res://sprites/Papel-1.PNG")
