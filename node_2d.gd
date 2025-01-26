@@ -4,13 +4,30 @@ extends CanvasLayer
 @onready var mejoras: Control = $Mejoras
 @onready var texture_button = $Main/TextureButton
 @onready var current_state:int = 1
+@onready var progress_bar: ProgressBar = $Main/ProgressBar
+var valor_maximo: int = 20
+var initial_position : Vector2
 
-const INITIAL_POSITION = Vector2(-960, -167)
 const ADDER : int = 1
 
+func _ready() -> void:
+	initial_position = texture_button.position
 
 func _on_texture_button_pressed():
 	contador.text = str(int(contador.text) + ADDER * mejoras.multiplicador)
+	progress_bar.value += ADDER * mejoras.multiplicador
+	if progress_bar.value >= progress_bar.max_value:
+		print(progress_bar.max_value)
+		progress_bar.value = valor_maximo
+		match valor_maximo:
+			20:
+				progress_bar.max_value = 100
+			100:
+				progress_bar.max_value = 1000
+			1000:
+				progress_bar.max_value = 5000
+		valor_maximo = progress_bar.max_value
+	# print(ADDER * mejoras.multiplicador)
 	# cambiar textura
 	var new_texture: CompressedTexture2D = null
 	current_state = current_state + 1 if current_state != 5 else 0
@@ -34,9 +51,9 @@ func _on_texture_button_pressed():
 	tween.tween_property(texture_button, "rotation_degrees", randf_range(-3, -10), 0.05)
 	if current_state == 0:
 		texture_button.disabled = true
-		tween.tween_property(texture_button, "position", Vector2(texture_button.position.x, 800), 1)
+		tween.tween_property(texture_button, "position", Vector2(texture_button.position.x, 800), 0.1)
 		await  tween.finished
-		texture_button.position = INITIAL_POSITION
+		texture_button.position = initial_position
 		texture_button.scale = Vector2(0,0)
 		#tween.stop()
 		$Main/TextureButton/AnimationPlayer.play("create")
